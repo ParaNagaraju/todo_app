@@ -1,45 +1,54 @@
-import React, { useState } from 'react'
-import Todolist from './Todolist';
+import React, { useState } from "react";
+import Todolist from "./Todolist";
 
-function App() {   
-  const [task,setTask]= useState("");
-  const[todos,setTodos]=useState([]);
+function App() {
+  const [task, setTask] = useState("");
+  const [todos, setTodos] = useState([]);
 
-  const changeHandler=e=>{
-    setTask(e.target.value)
-  }
-  if(editinex){
-    const editTodo=todos.find((index)=>index.id)
-  }
- 
+  const changeHandler = (e) => {
+    setTask(e.target.value);
+  };
 
-  const submitHandler= e => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    const newTodos=[ ...todos,task ]
+    const newTodos = [...todos, task];
     setTodos(newTodos);
+
     setTask("");
-  }
+  };
 
-  const deleteHandler=(indexvalue )=>{
- const newTodos=todos.filter((todos,index)=>index!==indexvalue);
- setTodos(newTodos);   
-  }
+  const deleteHandler = (indexvalue) => {
+    const neTodos = todos.filter((made, index) => index !== indexvalue);
+    setTodos(neTodos);
+  };
 
-  const editHandler=(indexvalue)=>{
-    const newTodos=todos.find((i)=>i.index === indexvalue);
-    setTodos(newTodos.todos)
-  }
+  const editHandler = (indexvalue) => {
+    setTask(todos[indexvalue]);
+    deleteHandler (indexvalue);
+    // setEdit(indexvalue);
+  };
 
   return (
     <div className="App">
       <center>
-      <h1>TODO App</h1>
-      <form onSubmit={submitHandler}>
-        <input type="text" name='task'value={task} onChange={changeHandler}  ></input>&nbsp;
-        <input type="submit" value= "Add" name='Add'></input>
-        
-      </form>
-      <Todolist todolist={todos} deleteTodos={deleteHandler} editHandler={editHandler}/>
+        <h1>TODO App</h1>
+        <form onSubmit={submitHandler}>
+          <div className="row">
+          <input className="text"
+            type="text"
+            name="task"
+            value={task}
+            onChange={changeHandler}
+          ></input>
+          &nbsp;
+          <input type="submit" value="Add" name="Add"></input> 
+          </div>
+        </form>
+        <Todolist
+          todolist={todos}
+          deleteTodos={deleteHandler}
+          editTodos={editHandler}
+        />
       </center>
     </div>
   );
